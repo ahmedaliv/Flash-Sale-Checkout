@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Product;
+use Illuminate\Support\Facades\Cache;
+class ProductController extends Controller
+{
+    public function show($id)
+    {
+
+        $product = Cache::remember("product_{$id}", 10, function () use ($id) {
+            return Product::findOrFail($id);
+        });
+        return response()->json([
+            'id' => $product->id,
+            'name' => $product->name,
+            'price' => $product->price,
+            'stock' => $product->stock,
+        ]);
+    }
+}
