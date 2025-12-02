@@ -6,13 +6,13 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/holds": {
+        "/api/v1/holds": {
             "post": {
                 "tags": [
                     "Holds"
                 ],
                 "summary": "Create a temporary hold for a product",
-                "operationId": "5cb5978b94adc6c11a2001bd2c3cf4ee",
+                "operationId": "1864c20ed589cc4cf0519c7eccadd29c",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -85,13 +85,13 @@
                 }
             }
         },
-        "/api/orders": {
+        "/api/v1/orders": {
             "post": {
                 "tags": [
                     "Orders"
                 ],
                 "summary": "Create an order from a hold",
-                "operationId": "d690d6834318e9b064df441e854de8b9",
+                "operationId": "f92c2f898a00f407e1efa0fd23c93b24",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -167,13 +167,13 @@
                 }
             }
         },
-        "/api/payments/webhook": {
+        "/api/v1/payments/webhook": {
             "post": {
                 "tags": [
                     "Payments"
                 ],
                 "summary": "Handle payment gateway webhook",
-                "operationId": "45a347f7120201c07889a9a050a43164",
+                "operationId": "b2d6909ffd7f6ebc8edfbeae57f26c1f",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -259,13 +259,13 @@
                 }
             }
         },
-        "/api/products/{id}": {
+        "/api/v1/products/{id}": {
             "get": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "Get product by ID with current stock",
-                "operationId": "7ab21ddb713501f3d4c2914892c02a21",
+                "operationId": "1948ab0c6b14a722ad6d1665cd38e1f1",
                 "parameters": [
                     {
                         "name": "id",

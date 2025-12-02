@@ -22,7 +22,7 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/api/products/{id}",
+     *     path="/api/v1/products/{id}",
      *     summary="Get product by ID with current stock",
      *     tags={"Products"},
      *

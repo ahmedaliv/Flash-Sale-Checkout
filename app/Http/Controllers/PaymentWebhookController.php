@@ -18,7 +18,7 @@ class PaymentWebhookController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/payments/webhook",
+     *     path="/api/v1/payments/webhook",
      *     summary="Handle payment gateway webhook",
      *     tags={"Payments"},
      *

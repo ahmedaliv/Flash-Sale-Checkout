@@ -17,7 +17,7 @@ class HoldController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/holds",
+     *     path="/api/v1/holds",
      *     summary="Create a temporary hold for a product",
      *     tags={"Holds"},
      *

@@ -16,7 +16,7 @@ class OrderController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/orders",
+     *     path="/api/v1/orders",
      *     summary="Create an order from a hold",
      *     tags={"Orders"},
      *
