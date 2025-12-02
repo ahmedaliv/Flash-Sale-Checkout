@@ -13,7 +13,7 @@ This project is Laravel-based application designed to handle flash sale checkout
 
 1. Clone the repository:
    ```bash
-   git clone git@github.com:ahmedaliv/Flash-Sale-Checkout.git
+   git clone https://github.com/ahmedaliv/Flash-Sale-Checkout.git
     cd Flash-Sale-Checkout
     ```
 2. Install dependencies:
