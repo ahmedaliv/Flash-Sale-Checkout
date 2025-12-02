@@ -42,7 +42,9 @@ This project is Laravel-based application designed to handle flash sale checkout
     ```bash
     php artisan serve
     ```
-8. Access the application at `http://localhost:8000`.
+8. Access the application:
+   - Application: `http://localhost:8000`
+   - Swagger UI: `http://localhost:8000/api/documentation`
 
 
 ## API Endpoints
@@ -50,6 +52,15 @@ This project is Laravel-based application designed to handle flash sale checkout
  - `POST /api/v1/holds`: Create a hold on a product.
  - `POST /api/v1/orders`: Create an order for a held product.
  - `POST /api/v1/payments/webhook`: Handle payment gateway webhooks.
+
+## API Documentation
+- The API is documented using **Swagger / OpenAPI** annotations in the controllers.
+  after starting the server.
+- All endpoints (`/api/v1/products`, `/api/v1/holds`, `/api/v1/orders`, `/api/v1/payments/webhook`) are included in the documentation.
+- You can view the interactive Swagger UI by visiting: [Swagger UI](http://localhost:8000/api/documentation)
+
+![Swagger UI Screenshot](./assets/swaggerUI.png)
+  
 
 ## Assumptions and Invariants
 - Hold Rules: 
