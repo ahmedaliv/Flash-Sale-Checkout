@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Hold;
-use App\Models\Product;
 use App\Services\HoldService;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Log;
 class HoldController extends Controller
 {
     protected HoldService $holdService;
@@ -77,7 +75,7 @@ class HoldController extends Controller
             'product_id' => 'required|exists:products,id',
             'qty' => 'required|integer|min:1',
         ]);
-
+        Log::info('Creating hold', ['product_id' => $request->product_id, 'qty' => $request->qty]);
         $productId = $request->product_id;
         $qty = $request->qty;
 

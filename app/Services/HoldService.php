@@ -22,6 +22,7 @@ class HoldService
                 $product = Product::lockForUpdate()->find($productId);
 
                 if ($product->stock < $qty) {
+                    Log::warning('Not enough stock available for hold', ['product_id' => $productId, 'requested_qty' => $qty, 'available_stock' => $product->stock]);
                     throw new HttpResponseException(
                         response()->json([
                             'message' => 'Not Enough Stock Available.',
@@ -33,6 +34,7 @@ class HoldService
                 $product->decrement('stock', $qty);
                 Cache::put("product_stock_{$product->id}", $product->stock, 10);
                 $product->save();
+                Log::info('Product stock decremented for hold', ['product_id' => $productId, 'decremented_qty' => $qty, 'new_stock' => $product->stock]);
 
                 return Hold::create([
                     'product_id' => $product->id,
@@ -40,6 +42,7 @@ class HoldService
                     'expires_at' => Carbon::now()->addMinutes(2),
                 ]);
             });
+            Log::info('Hold created successfully', ['hold_id' => $hold->id, 'product_id' => $productId, 'qty' => $qty]);
 
             $expiresAt = $hold->expires_at;
             $now = now();
