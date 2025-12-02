@@ -167,6 +167,98 @@
                 }
             }
         },
+        "/api/payments/webhook": {
+            "post": {
+                "tags": [
+                    "Payments"
+                ],
+                "summary": "Handle payment gateway webhook",
+                "operationId": "45a347f7120201c07889a9a050a43164",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "order_id",
+                                    "status",
+                                    "idempotency_key"
+                                ],
+                                "properties": {
+                                    "order_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": [
+                                            "success",
+                                            "failure"
+                                        ],
+                                        "example": "success"
+                                    },
+                                    "idempotency_key": {
+                                        "type": "string",
+                                        "example": "abc123xyz"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Webhook successfully processed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook successfully processed."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Client error (invalid request)",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Validation failed"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Server error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook processing failed."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/products/{id}": {
             "get": {
                 "tags": [
@@ -230,6 +322,10 @@
         {
             "name": "Orders",
             "description": "Orders"
+        },
+        {
+            "name": "Payments",
+            "description": "Payments"
         },
         {
             "name": "Products",

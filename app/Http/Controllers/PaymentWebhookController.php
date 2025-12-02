@@ -16,6 +16,55 @@ class PaymentWebhookController extends Controller
         $this->service = $service;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/payments/webhook",
+     *     summary="Handle payment gateway webhook",
+     *     tags={"Payments"},
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *
+     *         @OA\JsonContent(
+     *             required={"order_id","status","idempotency_key"},
+     *
+     *             @OA\Property(property="order_id", type="integer", example=1),
+     *             @OA\Property(property="status", type="string", enum={"success","failure"}, example="success"),
+     *             @OA\Property(property="idempotency_key", type="string", example="abc123xyz")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=200,
+     *         description="Webhook successfully processed",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="message", type="string", example="Webhook successfully processed.")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=400,
+     *         description="Client error (invalid request)",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="message", type="string", example="Validation failed")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=500,
+     *         description="Server error",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="message", type="string", example="Webhook processing failed.")
+     *         )
+     *     )
+     * )
+     */
     public function handle(Request $request)
     {
         $request->validate([
@@ -37,7 +86,7 @@ class PaymentWebhookController extends Controller
             Log::error('Webhook processing failed.', [
                 'error' => $e->getMessage(),
                 'order_id' => $orderId,
-                'key' => $key
+                'key' => $key,
             ]);
 
             return response()->json(['message' => 'Webhook processing failed.'], Response::HTTP_INTERNAL_SERVER_ERROR);
