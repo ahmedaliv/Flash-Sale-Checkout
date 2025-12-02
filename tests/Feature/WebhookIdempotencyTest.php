@@ -28,8 +28,6 @@ class WebhookIdempotencyTest extends TestCase
 
     public function test_webhook_idempotency_prevents_double_processing(): void
     {
-        dump(DB::connection()->getDatabaseName());
-
         // Step 1: Create a product
         $product = Product::factory()->create([
             'name' => 'Test Product',
