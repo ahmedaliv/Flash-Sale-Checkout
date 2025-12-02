@@ -56,7 +56,7 @@ class OrderService
                 ->where('processed', 'pending')
                 ->get();
 
-            $webhookController = new \App\Http\Controllers\PaymentWebhookController;
+            $webhookController = new \App\Services\PaymentWebhookService;
 
             foreach ($pendingWebhooks as $webhook) {
                 $webhookController->processWebhook($order, $webhook);
