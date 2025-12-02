@@ -2,28 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use Illuminate\Support\Facades\Cache;
+use App\Services\ProductService;
 
 class ProductController extends Controller
 {
+    protected ProductService $productService;
+
+    public function __construct(ProductService $productService)
+    {
+        $this->productService = $productService;
+    }
+
     public function show($id)
     {
-        $product = Cache::remember("product_info_{$id}", 60, function () use ($id) {
-            return Product::select('id', 'name', 'price')->findOrFail($id);
-        });
-
-        $availableStock = Cache::remember("product_stock_{$id}", 10, function () use ($id) {
-            $productStock = Product::findOrFail($id)->stock;
-
-            return $productStock;
-        });
-
-        return response()->json([
-            'id' => $product->id,
-            'name' => $product->name,
-            'price' => $product->price,
-            'stock' => $availableStock,
-        ]);
+        $productData = $this->productService->getProductWithStock((int) $id);
+        return response()->json($productData);
     }
 }
