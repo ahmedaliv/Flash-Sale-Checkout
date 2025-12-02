@@ -6,6 +6,85 @@
         "version": "1.0.0"
     },
     "paths": {
+        "/api/holds": {
+            "post": {
+                "tags": [
+                    "Holds"
+                ],
+                "summary": "Create a temporary hold for a product",
+                "operationId": "5cb5978b94adc6c11a2001bd2c3cf4ee",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_id",
+                                    "qty"
+                                ],
+                                "properties": {
+                                    "product_id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "qty": {
+                                        "type": "integer",
+                                        "example": 2
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Hold created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "hold_id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "expires_at": {
+                                            "type": "string",
+                                            "format": "date-time",
+                                            "example": "2025-12-02T16:20:00Z"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "409": {
+                        "description": "Not enough stock available",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Not Enough Stock Available."
+                                        },
+                                        "available": {
+                                            "type": "integer",
+                                            "example": 5
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "System error"
+                    }
+                }
+            }
+        },
         "/api/products/{id}": {
             "get": {
                 "tags": [
@@ -62,6 +141,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Holds",
+            "description": "Holds"
+        },
         {
             "name": "Products",
             "description": "Products"

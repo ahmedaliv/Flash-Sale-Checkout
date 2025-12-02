@@ -17,6 +17,51 @@ class HoldController extends Controller
         $this->holdService = $holdService;
     }
 
+    /**
+     * @OA\Post(
+     *     path="/api/holds",
+     *     summary="Create a temporary hold for a product",
+     *     tags={"Holds"},
+     *
+     *     @OA\RequestBody(
+     *         required=true,
+     *
+     *         @OA\JsonContent(
+     *             required={"product_id","qty"},
+     *
+     *             @OA\Property(property="product_id", type="integer", example=1),
+     *             @OA\Property(property="qty", type="integer", example=2)
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=201,
+     *         description="Hold created successfully",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="hold_id", type="integer", example=1),
+     *             @OA\Property(property="expires_at", type="string", format="date-time", example="2025-12-02T16:20:00Z")
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=409,
+     *         description="Not enough stock available",
+     *
+     *         @OA\JsonContent(
+     *
+     *             @OA\Property(property="message", type="string", example="Not Enough Stock Available."),
+     *             @OA\Property(property="available", type="integer", example=5)
+     *         )
+     *     ),
+     *
+     *     @OA\Response(
+     *         response=500,
+     *         description="System error"
+     *     )
+     * )
+     */
     public function store(Request $request)
     {
         // it gets product_id and quantity
