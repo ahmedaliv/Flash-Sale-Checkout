@@ -38,7 +38,7 @@ class HoldExpirationTest extends TestCase
 
         // do the hold
         // make http request to create hold 
-        $response = $this->postJson('/api/holds', [
+        $response = $this->postJson('/api/v1/holds', [
             'product_id' => $product->id,
             'qty' => $holdQty,
         ]);

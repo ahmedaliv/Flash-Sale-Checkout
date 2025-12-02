@@ -58,7 +58,7 @@ class WebhookBeforeOrderTest extends TestCase
             'idempotency_key' => $idempotencyKey,
         ];
         // Step 4: Send the webhook
-        $webhookResponse = $this->postJson('/api/payments/webhook', $webhookPayload);
+        $webhookResponse = $this->postJson('/api/v1/payments/webhook', $webhookPayload);
         $webhookResponse->assertStatus(200);
 
         // Step 5: Assert that the webhook is recorded as pending in the database

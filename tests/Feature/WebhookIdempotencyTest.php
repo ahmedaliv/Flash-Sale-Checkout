@@ -40,7 +40,7 @@ class WebhookIdempotencyTest extends TestCase
         // we have 2 options to create
         // 1- use factory to create hold directly
         // 2- use the API endpoint to create hold ( we'll use this to simulate the real flow)
-        $holdResponse = $this->postJson('/api/holds', [
+        $holdResponse = $this->postJson('/api/v1/holds', [
             'product_id' => $productId,
             'qty' => 2,
         ]);
@@ -51,7 +51,7 @@ class WebhookIdempotencyTest extends TestCase
         $this->assertNotNull($hold, 'Hold should exist in database');
 
         // Step 3: Create an order for that hold
-        $order = $this->postJson('/api/orders', [
+        $order = $this->postJson('/api/v1/orders', [
             'hold_id' => $holdId,
         ]);
         $order->assertStatus(201);
@@ -69,7 +69,7 @@ class WebhookIdempotencyTest extends TestCase
             'idempotency_key' => $idempotencyKey,
         ];
         // Step 5: Send the webhook first time
-        $firstResponse = $this->postJson('/api/payments/webhook', $webhookPayload);
+        $firstResponse = $this->postJson('/api/v1/payments/webhook', $webhookPayload);
         $firstResponse->assertStatus(200);
         // Step 6: Assert database changes (order status updated, webhook recorded)
         $orderModel->refresh();
@@ -82,7 +82,7 @@ class WebhookIdempotencyTest extends TestCase
         ]);
 
         // Step 7: Send the same webhook second time
-        $secondResponse = $this->postJson('/api/payments/webhook', $webhookPayload);
+        $secondResponse = $this->postJson('/api/v1/payments/webhook', $webhookPayload);
         $secondResponse->assertStatus(200);
 
         // Step 8: Assert database did not duplicate changes
