@@ -72,7 +72,11 @@ This project is Laravel-based application designed to handle flash sale checkout
  - if in linux you can use `tail -f storage/logs/laravel.log` to see it live.
 
 ## Testing
- - Added Automated Tests:
+
+- ### Added Automated Tests:
+    - To run all tests: `php artisan test`
+    - To run specific tests, use the `--filter` option with the test class name.
+ - ### Key Test Cases:
     - Hold expiry returns available stock. (Can be found in `tests/Feature/HoldExpirationTest.php` and run using `php artisan test --filter=HoldExpirationTest`)
     - Webhook Idempotency. (Can be found in `tests/Feature/WebhookIdempotencyTest.php` and run using `php artisan test --filter=WebhookIdempotencyTest`)
     - Webhook arriving before order creation. (Can be found in `tests/Feature/WebhookBeforeOrderTest.php` and run using `php artisan test --filter=WebhookBeforeOrderTest`)
@@ -84,7 +88,7 @@ This project is Laravel-based application designed to handle flash sale checkout
 
         Make sure Apache Bench (ab) is installed.
 
-        Run bash scripts/hold_concurrency_test.sh.
+        Run `bash scripts/hold_concurrency_test.sh`
 
         This script will:
 
@@ -97,3 +101,8 @@ This project is Laravel-based application designed to handle flash sale checkout
         Finally, check how many holds were successfully created
 
         Expected result: Only 5 holds succeed, leaving stock at 0.
+
+        #### Demo Screenshot:
+
+
+        ![Demo screenshot](assets/hold_concuurency_demo.png)
